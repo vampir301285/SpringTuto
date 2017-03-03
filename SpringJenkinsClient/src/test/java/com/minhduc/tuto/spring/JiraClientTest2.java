@@ -32,9 +32,8 @@ public class JiraClientTest2 {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
 
-            // String input = "{\"username\":\"username\",\"password\":\"password\"}";
+            String input = "{\"username\":\"username\",\"password\":\"password\"}";
             ObjectMapper mapper = new ObjectMapper();
-            String input = mapper.writeValueAsString(new JiraUser("username", "password"));
             System.out.println(input);
             OutputStream os = conn.getOutputStream();
             os.write(input.getBytes());
@@ -54,7 +53,7 @@ public class JiraClientTest2 {
 
             }
             System.out.println(body);
-            JiraLoginResponse obj = mapper.readValue(body, JiraLoginResponse.class);
+            LoginSessionResponse obj = mapper.readValue(body, LoginSessionResponse.class);
             System.out.println(obj.getSession().get("name") + " - " + obj.getSession().get("value"));
 
             conn.disconnect();

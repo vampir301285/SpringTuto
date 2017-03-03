@@ -3,12 +3,10 @@ package com.jaxbtuto.example;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "book")
 // If you want you can define the order in which the fields are written
 // Optional
-@XmlType(propOrder = { "author", "name", "publisher", "isbn" })
 public class Book {
 
         private String name;

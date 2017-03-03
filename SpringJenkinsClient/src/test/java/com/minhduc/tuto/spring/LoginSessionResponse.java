@@ -2,7 +2,7 @@ package com.minhduc.tuto.spring;
 
 import java.util.LinkedHashMap;
 
-public class JiraLoginResponse {
+public class LoginSessionResponse {
 
     private LinkedHashMap<String, String> session;
     

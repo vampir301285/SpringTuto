@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:bookstore xmlns:ns2="de.vogella.xml.jaxb.model">
+<bookstore>
     <bookList>
         <book price="7.6">
             <author>Neil Strauss</author>
+            <isbn>978-0060554736</isbn>
             <title>The Game</title>
             <publisher>Harpercollins</publisher>
-            <isbn>978-0060554736</isbn>
         </book>
         <book price="12.11">
             <author>Charlotte Roche</author>
+            <isbn>978-3832180577</isbn>
             <title>Feuchtgebiete</title>
             <publisher>Dumont Buchverlag</publisher>
-            <isbn>978-3832180577</isbn>
         </book>
     </bookList>
-    <location>Frankfurt Airport</location>
     <name>Fraport Bookstore</name>
-</ns2:bookstore>
+    <location>Frankfurt Airport</location>
+</bookstore>
