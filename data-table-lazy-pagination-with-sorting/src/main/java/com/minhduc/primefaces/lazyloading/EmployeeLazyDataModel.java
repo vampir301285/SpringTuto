@@ -25,11 +25,6 @@ public class EmployeeLazyDataModel extends LazyDataModel<Employee> {
 
     @Override
     public List<Employee> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        if (filters != null) {
-            filters.forEach((k, v) -> {
-                System.out.println("Key: " + k + ", Value: " + v);
-            });
-        }
         List<Employee> list = dataService.getEmployeeList(first, pageSize, sortField, sortOrder, filters);
         return list;
     }
