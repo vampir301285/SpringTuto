@@ -54,13 +54,18 @@ public enum DataService {
         }
         if (filters != null && !filters.isEmpty()) {
             List<Predicate> predicates = new ArrayList<>();
-            filters.forEach((k, v) -> {
-                System.out.println("Key: " + k + ", Value: " + v);
-                Expression<String> filterKeyExp = r.get(k).as(String.class);
-                String filterValue = "%" + ((String) v).toLowerCase() + "%";
+            filters.forEach((key, value) -> {
+                if (value == null) {
+                    return; // only skips this iteration.
+                }
+                System.out.println("Key: " + key + ", Value: " + value);
+                Expression<String> filterKeyExp = r.get(key).as(String.class);
+                String filterValue = "%" + ((String) value).toLowerCase() + "%";
                 predicates.add(cb.like(cb.lower(filterKeyExp), filterValue));
             });
-            q.where(predicates.toArray(new Predicate[] {}));
+            if (predicates.size() > 0) {
+                q.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
+            }
         }
 
         TypedQuery<Employee> query = em.createQuery(select);
@@ -74,5 +79,33 @@ public enum DataService {
         EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("Select count(e.id) From Employee e");
         return ((Long) query.getSingleResult()).intValue();
+    }
+
+    public int getFilteredRowCount(Map<String, Object> filters) {
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = cb.createQuery(Long.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        CriteriaQuery<Long> select = criteriaQuery.select(cb.count(root));
+
+        if (filters != null && filters.size() > 0) {
+            List<Predicate> predicates = new ArrayList<>();
+            for (Map.Entry<String, Object> entry : filters.entrySet()) {
+                String field = entry.getKey();
+                Object value = entry.getValue();
+                if (value == null) {
+                    continue;
+                }
+
+                Expression<String> expr = root.get(field).as(String.class);
+                Predicate p = cb.like(cb.lower(expr), "%" + value.toString().toLowerCase() + "%");
+                predicates.add(p);
+            }
+            if (predicates.size() > 0) {
+                criteriaQuery.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
+            }
+        }
+        Long count = em.createQuery(select).getSingleResult();
+        return count.intValue();
     }
 }
