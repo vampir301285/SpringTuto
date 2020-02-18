@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class EmployeeLazyDataModel extends LazyDataModel<Employee> {
-    
+
     private DataService dataService;
 
     /**
@@ -25,7 +25,12 @@ public class EmployeeLazyDataModel extends LazyDataModel<Employee> {
 
     @Override
     public List<Employee> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        List<Employee> list = dataService.getEmployeeList(first, pageSize, sortField, sortOrder);
+        if (filters != null) {
+            filters.forEach((k, v) -> {
+                System.out.println("Key: " + k + ", Value: " + v);
+            });
+        }
+        List<Employee> list = dataService.getEmployeeList(first, pageSize, sortField, sortOrder, filters);
         return list;
     }
 }

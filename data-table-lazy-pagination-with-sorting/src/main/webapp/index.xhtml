@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
-<h:head></h:head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+</style>
+</h:head>
 
 <h:body>
     <h2>Primefaces Lazy pagination with sorting example</h2>
     <h:form>
-        <p:dataTable var="employee" value="#{employeeController.model}" paginator="true" rows="50"
-            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink}
-                             {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+        <p:dataTable id="datatable" widgetVar="tableWg" var="employee" value="#{employeeController.model}"
+            paginator="true" rows="20" paginatorPosition="bottom"
+            paginatorTemplate="Rows per Page:{RowsPerPageDropdown} {FirstPageLink}
+                             {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
             rowsPerPageTemplate="20,50,100" lazy="true">
-            <p:column headerText="Id" sortBy="#{employee.id}">
+            <p:column headerText="Id" sortBy="#{employee.id}" filterBy="#{employee.id}">
                 <h:outputText value="#{employee.id}" />
             </p:column>
 
-            <p:column headerText="Name" sortBy="#{employee.name}">
+            <p:column headerText="Name" sortBy="#{employee.name}" filterBy="#{employee.name}">
                 <h:outputText value="#{employee.name}" />
             </p:column>
 
-            <p:column headerText="Phone Number" sortBy="#{employee.phoneNumber}">
+            <p:column headerText="Phone Number" sortBy="#{employee.phoneNumber}" filterBy="#{employee.phoneNumber}">
                 <h:outputText value="#{employee.phoneNumber}" />
             </p:column>
 
-            <p:column headerText="Address" sortBy="#{employee.address}">
+            <p:column headerText="Address" sortBy="#{employee.address}" filterBy="#{employee.address}">
                 <h:outputText value="#{employee.address}" />
             </p:column>
 
-            <p:column headerText="Address" sortBy="#{employee.email}">
+            <p:column headerText="Email" sortBy="#{employee.email}" filterBy="#{employee.email}">
                 <h:outputText value="#{employee.email}" />
             </p:column>
         </p:dataTable>
