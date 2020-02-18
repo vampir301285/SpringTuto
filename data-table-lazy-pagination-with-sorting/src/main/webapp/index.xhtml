@@ -6,6 +6,26 @@
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
+.ui-paginator {
+    text-align: right !important;
+}
+
+.ui-paginator span {
+    text-align: left !important;
+}
+
+.ui-paginator {
+    padding: 5px !important;
+}
+
+.ui-datatable-header {
+    padding: 5px !important;
+}
+
+.ui-paginator-current {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
 </style>
 </h:head>
 
@@ -14,9 +34,12 @@
     <h:form>
         <p:dataTable id="datatable" widgetVar="tableWg" var="employee" value="#{employeeController.model}"
             paginator="true" rows="20" paginatorPosition="bottom"
-            paginatorTemplate="Rows per Page:{RowsPerPageDropdown} {FirstPageLink}
-                             {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
-            rowsPerPageTemplate="20,50,100" lazy="true">
+            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink}
+                             {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} &nbsp;&nbsp;-&nbsp;Page: {JumpToPageDropdown} {CurrentPageReport}"
+            currentPageReportTemplate="of {totalPages}" rowsPerPageTemplate="20,50,100" lazy="true">
+            <f:facet name="header">
+            Lazy Loading with Pagination and Filter
+            </f:facet>
             <p:column headerText="Id" sortBy="#{employee.id}" filterBy="#{employee.id}">
                 <h:outputText value="#{employee.id}" />
             </p:column>

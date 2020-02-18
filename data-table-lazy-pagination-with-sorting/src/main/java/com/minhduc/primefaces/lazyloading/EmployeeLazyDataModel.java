@@ -27,10 +27,11 @@ public class EmployeeLazyDataModel extends LazyDataModel<Employee> {
     @Override
     public List<Employee> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         List<Employee> list = dataService.getEmployeeList(first, pageSize, sortField, sortOrder, filters);
-        
         if (filters != null && filters.size() > 0) {
             // otherwise it will still show all page links; pages at end will be empty
             this.setRowCount(dataService.getFilteredRowCount(filters));
+        } else {
+            this.setRowCount(dataService.getEmployeeTotalCount());
         }
         return list;
     }

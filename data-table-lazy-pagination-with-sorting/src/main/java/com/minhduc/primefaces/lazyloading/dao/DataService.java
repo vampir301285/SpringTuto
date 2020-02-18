@@ -48,7 +48,7 @@ public enum DataService {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Employee> q = cb.createQuery(Employee.class);
         Root<Employee> r = q.from(Employee.class);
-        CriteriaQuery<Employee> select = q.select(r);
+       
         if (sortField != null) {
             q.orderBy(sortOrder == SortOrder.DESCENDING ? cb.asc(r.get(sortField)) : cb.desc(r.get(sortField)));
         }
@@ -67,7 +67,8 @@ public enum DataService {
                 q.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
             }
         }
-
+        
+        CriteriaQuery<Employee> select = q.select(r);
         TypedQuery<Employee> query = em.createQuery(select);
         query.setFirstResult(start);
         query.setMaxResults(size);
