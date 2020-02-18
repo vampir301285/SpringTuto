@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layout.xhtml">
+        <ui:define name="pageHeader">
+            <div style="float: right;">
+                <h:form id="controlForm">
+                    <p:button
+                        styleClass="small"
+                        href="/pages/welcome"
+                        value="Home"
+                        icon="ui-icon-triangle-1-w"></p:button>
+                </h:form>
+            </div>
+            <div class="page-title">
+                <h:outputText value="URL Mapping" />
+            </div>
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <h:form>
+                <h:outputText
+                    value="Message: #{welcomeController.message}"
+                    rendered="#{not empty welcomeController.message}" />
+                <br />
+                <p:inputText value="#{welcomeController.message}">
+                    <p:ajax
+                        event="mouseout"
+                        update="control"></p:ajax>
+                </p:inputText>
+                <h:outputLink
+                    value="#{request.contextPath}/pages/urlmapping/enter_message"
+                    title="Click Me">
+                    <h:outputText value="Click me" />
+                </h:outputLink>
+                <p:button
+                    id="control"
+                    href="/pages/urlmapping/#{welcomeController.message}"
+                    value="Click me">
+                </p:button>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

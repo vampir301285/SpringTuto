@@ -1,0 +1,324 @@
+/** to overwrite PrimeFaces Style*/
+body {
+	/**
+	common: "Times New Roman", Times, serif 
+	or
+	Arial, "Trebuchet MS", Verdana, sans-serif
+	*/
+	font-family: arial, helvetica, "DejaVu Sans", "Arial Unicode MS",
+		"Lucida Sans Unicode", sans-serif;
+	font-size: 12px;
+	padding: 0px 0px !important;
+	margin: 0px;
+}
+
+.ui-widget-header {
+	font-size: 13px;
+}
+
+.ui-widget-content {
+	font-family: arial, helvetica, "DejaVu Sans", "Arial Unicode MS",
+		"Lucida Sans Unicode", sans-serif;
+}
+
+.login-panel {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 300px;
+	height: 200px;
+	top: 100px;
+	margin-left: -150px;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1200px;
+}
+
+/** no border style for p:panelGrid and table tag*/
+.none-border-panel tr, .none-border-panel td {
+	border: none !important;
+}
+
+.none-border-panel {
+	border: none !important;
+}
+
+.none-border-panel .ui-widget-content {
+	border: none;
+}
+
+/** input */
+input.ui-state-hover {
+	background: #f6f6f6 !important;
+	color: black !important;
+}
+
+input.ui-state-focus {
+	background: #f6f6f6 !important;
+	color: black !important;
+}
+
+/** text area */
+textarea.ui-state-hover {
+	background: #f6f6f6 !important;
+	color: black !important;
+}
+
+textarea.ui-state-focus {
+	background: #f6f6f6 !important;
+	color: black !important;
+}
+
+/** customized auto complete*/
+.ui-autocomplete-multiple .ui-state-hover {
+	background: #f6f6f6 !important;
+	color: black !important;
+}
+
+.ui-autocomplete-multiple .ui-state-focus {
+	background: #f6f6f6 !important;
+	color: black !important;
+}
+
+/** growl*/
+.ui-growl-title {
+	font-size: 12px;
+}
+
+.tag {
+	color: #ff0084 !important;
+}
+
+.tag-grey {
+	color: #444444 !important;
+	font-weight: normal !important;
+}
+
+/** Accordian*/
+.ui-accordion-header {
+	border: 1px solid #dddddd;
+	font-size: 13px;
+}
+
+.ui-accordion .ui-state-active {
+	background: #f2f2f2;
+}
+
+.ui-accordion-content {
+	border: 1px solid #dddddd;
+	border-top: 1px solid #dddddd;
+}
+
+/** override ui-widget-header*/
+.ui-widget-header {
+	background: #0095cd !important;
+	font-size: 13px;
+	color: white;
+}
+
+/** paginator */
+.ui-paginator {
+	text-align: left !important;
+}
+
+.ui-paginator-bottom.ui-widget-header {
+	background: none !important;
+	color: #0073ea;
+}
+
+.navi-bar {
+	/*background: #003366 !important;*/
+	background: -webkit-linear-gradient(#003366, #00478F) !important;
+	/* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#003366, #00478F) !important;
+	/* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#003366, #00478F) !important;
+	/* For Firefox 3.6 to 15 */
+	background: linear-gradient(#003366, #00478F) !important;
+	/* Standard syntax */
+	height: 80px;
+	vertical-align: middle;
+}
+
+.menu-bar-customized {
+	/*background: #003366 !important;*/
+	/*background: -webkit-linear-gradient(#003366, #00478F) !important;*/
+	/* For Safari 5.1 to 6.0 */
+	/*background: -o-linear-gradient(#003366, #00478F) !important;*/
+	/* For Opera 11.1 to 12.0 */
+	/*background: -moz-linear-gradient(#003366, #00478F) !important;*/
+	/* For Firefox 3.6 to 15 */
+	/*background: linear-gradient(#003366, #00478F) !important;*/
+	background: inherit;
+	/* Standard syntax */
+	border-bottom-right-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-top-left-radius: 0 !important;
+	border: none !important;
+	padding-right: 15px !important;
+}
+
+.menu-item-1 .ui-menuitem-text {
+	color: #ffffff;
+	font-size: 13px;
+	font-weight: bold;
+	padding-left: 10px !important;
+	padding-right: 5px !important;
+}
+
+.menu-item-default .ui-menuitem-text {
+	color: #000000;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.menu-item-default .ui-menuitem-text:hover {
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.submenu {
+	border-bottom: 1px solid #E0E0E0 !important;
+	padding-bottom: 1px;
+	background: #eff3f6 !important;
+	height: 36px;
+	vertical-align: bottom;
+	background: #eff3f6 !important;
+}
+
+.page-header {
+	padding: 3px 10px;
+	z-index: 1000;
+	font-weight: bold;
+	height: 30px;
+	background: #f6f6f6 !important;
+	border: none !important;
+	border-bottom: 1px solid #E0E0E0 !important;
+	font-size: 14px !important;
+}
+
+.page-content {
+	border: none;
+	padding: 10px 10px;
+}
+
+.page-footer {
+	margin-bottom: 10px;
+	padding: 10px;
+	height: 50px;
+	border: none;
+	background: #f6f6f6 !important;
+	border-bottom: 1px solid #E0E0E0 !important;
+	border-top: 1px solid #E0E0E0 !important;
+	height: 50px;
+	padding: 10px;
+}
+
+.page-footer ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.page-footer li {
+	display: inline;
+	padding: 0 30px 0 0;
+}
+
+.page-footer li a {
+	text-decoration: none;
+}
+
+.display-none {
+	display: none !important;
+}
+
+.page-title {
+	padding-top: 7px;
+	font-size: 13px !important;
+	color: #252525 !important;
+}
+
+/** back to top button*/
+.back-to-top {
+	position: fixed;
+	right: 10px;
+	bottom: 5px;
+	font-size: 14px;
+	box-shadow: 0 0 15px 1px #808080;
+}
+
+.back-to-top.hidden {
+	display: none !important;
+}
+
+/** tab menu*/
+ul.tab-menu {
+	list-style-type: none;
+	margin: 0 !important;
+	padding: 0 !important;
+	overflow: hidden;
+	padding-left: 10px !important;
+}
+
+.tab-menu li {
+	float: left;
+}
+
+.tab-menu a {
+	display: block;
+	height: 26px;
+	font-weight: bold;
+	font-size: 14px;
+	/** #0073ea*/
+	color: #333333;
+	text-decoration: none;
+	padding-top: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.tab-menu a:hover {
+	background-color: #0073ea;
+	color: white;
+}
+
+.tab-menu .default {
+	
+}
+
+.tab-menu .active {
+	border-bottom: 3px solid #ff0084;
+	color: #ff0084;
+}
+
+.tab-menu .active:hover {
+	background-color: #0073ea;
+	color: white;
+}
+
+.ui-selectonemenu.ui-state-default {
+	color: #444444;
+}
+
+.ui-selectcheckboxmenu-label {
+	color: #444444;
+	padding: 4px !important;
+	font-weight: normal !important;
+}
+
+.event-header {
+	/*background: #003366 !important;*/
+	background: -webkit-linear-gradient(#003366, #00478F) !important;
+	/* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#003366, #00478F) !important;
+	/* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#003366, #00478F) !important;
+	/* For Firefox 3.6 to 15 */
+	background: linear-gradient(#003366, #00478F) !important;
+}

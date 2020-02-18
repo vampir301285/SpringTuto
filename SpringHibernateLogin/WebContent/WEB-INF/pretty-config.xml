@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+    <!-- Login page mapping -->
+    <url-mapping id="login">
+        <pattern value="/login" />
+        <view-id value="/login.jsf" /> <!-- JSF View Id -->
+    </url-mapping>
+    <!-- Under pages folder -->
+    <url-mapping id="welcome">
+        <pattern value="/pages/welcome" />
+        <view-id value="/pages/welcome.jsf" /> <!-- JSF View Id -->
+    </url-mapping>
+    <!-- Events page -->
+    <url-mapping id="events">
+        <pattern value="/pages/events" />
+        <view-id value="/pages/events/events.jsf" /> <!-- JSF View Id -->
+    </url-mapping>
+    <url-mapping id="events/">
+        <pattern value="/pages/events/" />
+        <view-id value="/pages/events/events.jsf" /> <!-- JSF View Id -->
+    </url-mapping>
+    <!-- Url mapping -->
+    <url-mapping id="urlmapping">
+        <pattern value="/pages/urlmapping" />
+        <view-id value="/pages/urlmapping.jsf" /> <!-- JSF View Id -->
+    </url-mapping>
+    <url-mapping id="urlmapping/">
+        <pattern value="/pages/urlmapping/" />
+        <view-id value="/pages/urlmapping.jsf" /> <!-- JSF View Id -->
+    </url-mapping>
+    <!-- to pass an request parameter -->
+    <url-mapping id="urlmapping/message">
+        <pattern value="/pages/urlmapping/#{message : welcomeController.message}" />
+        <view-id value="/pages/urlmapping.jsf" /> <!-- JSF View Id -->
+    </url-mapping>
+    <!-- under admin folder -->
+    <url-mapping id="admin">
+        <pattern value="/admin/admin" />
+        <view-id value="/admin/admin.jsf" />
+    </url-mapping>
+    <!-- PrimeFaces menu -->
+    <url-mapping id="animate">
+        <pattern value="/demo/chart/animate" />
+        <view-id value="/pages/demo/animate.jsf" />
+    </url-mapping>
+    <url-mapping id="toolbar">
+        <pattern value="/demo/panel/toolbar" />
+        <view-id value="/pages/demo/toolbar.jsf" />
+    </url-mapping>
+    <!-- Data scroller -->
+    <url-mapping id="datascrollerbasic">
+        <pattern value="/demo/data/datascroller/basic" />
+        <view-id value="/pages/demo/datascrollerbasic.jsf" />
+    </url-mapping>
+    <url-mapping id="datascrollerbasic">
+        <pattern value="/demo/data/datascroller/inline" />
+        <view-id value="/pages/demo/datascrollerinline.jsf" />
+    </url-mapping>
+    <url-mapping id="datascrollerloader">
+        <pattern value="/demo/data/datascroller/loader" />
+        <view-id value="/pages/demo/datascrollerloader.jsf" />
+    </url-mapping>
+    <!-- Data table -->
+    <url-mapping id="datastablebasic">
+        <pattern value="/demo/data/datatable/basic" />
+        <view-id value="/pages/demo/datatablebasic.jsf" />
+    </url-mapping>
+    <url-mapping id="datatablelazy">
+        <pattern value="/demo/data/datatable/lazy" />
+        <view-id value="/pages/demo/datatablelazy.jsf" />
+    </url-mapping>
+    <url-mapping id="datatablecolumntoggler">
+        <pattern value="/demo/data/datatable/columntoggler" />
+        <view-id value="/pages/demo/datatablecolumntoggler.jsf" />
+    </url-mapping>
+    <url-mapping id="datatablesticky">
+        <pattern value="/demo/data/datatable/sticky" />
+        <view-id value="/pages/demo/datatablesticky.jsf" />
+    </url-mapping>
+    <!-- Galleria -->
+    <url-mapping id="galleria">
+        <pattern value="/demo/media/galleria" />
+        <view-id value="/pages/demo/galleria.jsf" />
+    </url-mapping>
+    <!-- Tab menu -->
+    <url-mapping id="tabmenu">
+        <pattern value="/demo/menu/tabmenu" />
+        <view-id value="/pages/demo/tabmenu.jsf" />
+    </url-mapping>
+</pretty-config>

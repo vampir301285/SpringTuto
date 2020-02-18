@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layoutwithsubmenuevents.xhtml">
+        <ui:define name="headerControl">
+        </ui:define>
+        <ui:define name="submenu">
+            <ui:include src="/pages/events/eventsubmenu.xhtml" />
+        </ui:define>
+        <ui:define name="control">
+            <h:outputLink id="signoutLink" style="visibility:hidden;"
+                value="#{request.contextPath}/j_spring_security_logout"></h:outputLink>
+            <h:form id="controlForm">
+                <p:growl id="growl" showDetail="true" />
+                <p:button href="/pages/welcome" styleClass="button red small" value="Home"></p:button>
+            </h:form>
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <div style="border-bottom: 1px solid #dddddd; margin-bottom: 10px;">
+                <h:panelGroup rendered="true" id="currentfilterspanel">
+                    <div style="float: right">
+                        <p:commandLink styleClass="button blue" value="Clear filter(s)" style="padding:0px 3px;"
+                            oncomplete="$('#currentfilterspanel').hide();" />
+                    </div>
+                    <h:panelGrid columns="5" cellpadding="2">
+                        <p:outputLabel value="Current filter(s): ">
+                        </p:outputLabel>
+                        <p:commandLink onclick="$(this).hide();">
+                            <p:outputLabel value="OV x " style="cursor: pointer !important;"
+                                styleClass="ui-autocomplete-token ui-state-active ui-corner-all tag-grey" />
+                        </p:commandLink>
+                        <p:commandLink onclick="$(this).hide();">
+                            <p:outputLabel value="OmU x " style="cursor: pointer !important;"
+                                styleClass="ui-autocomplete-token ui-state-active ui-corner-all tag-grey" />
+                        </p:commandLink>
+                        <p:commandLink onclick="$(this).hide();">
+                            <p:outputLabel style="cursor: pointer !important;" value="Kommunales Kino Freiburg x "
+                                styleClass="ui-autocomplete-token ui-state-active ui-corner-all tag-grey" />
+                        </p:commandLink>
+                    </h:panelGrid>
+                </h:panelGroup>
+                <h:panelGrid columns="4" cellpadding="2">
+                    <p:selectCheckboxMenu style="width:150px;" id="falvor" label="Flavor" filter="true"
+                        filterMatchMode="startsWith">
+                        <f:selectItem itemLabel="OV" itemValue="OV" />
+                        <f:selectItem itemLabel="3D" itemValue="3D" />
+                        <f:selectItem itemLabel="OmU" itemValue="OmU" />
+                    </p:selectCheckboxMenu>
+                    <p:selectCheckboxMenu style="width:150px;" id="venue" label="Venue" filter="true"
+                        filterMatchMode="startsWith">
+                        <f:selectItem itemLabel="Cinemaxx " itemValue="Cinemaxx " />
+                        <f:selectItem itemLabel="Friedrichsbau " itemValue="Friedrichsbau " />
+                        <f:selectItem itemLabel="Kommunales Kino Freiburg" itemValue="Kommunales Kino Freiburg " />
+                    </p:selectCheckboxMenu>
+                </h:panelGrid>
+                <h:panelGrid columns="2" style="margin-bottom:5px" cellpadding="5">
+                    <p:outputLabel for="sortby" value="Sort by:" />
+                    <p:selectOneMenu id="sortby">
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItem itemLabel="Name" itemValue="name" />
+                        <f:selectItem itemLabel="Date &amp; Time" itemValue="DateAndTime" />
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </div>
+
+            <h:form id="mainForm">
+                <style>
+/** paginator */
+.ui-paginator {
+    text-align: right !important;
+}
+</style>
+                <p:dataTable var="event" value="#{eventsController.events}" rows="20" paginatorPosition="bottom"
+                    paginator="true" paginatorTemplate="{PageLinks}">
+                    <p:column headerText="Name">
+                        <h:outputText value="#{event.name}" style="font-size:1.1em;" />
+                    </p:column>
+                    <p:column headerText="Today &lt;br/&gt; Thu &lt;br/&gt; 19.02.2015" style="width:60px;">
+                        <h:outputText escape="false" value="#{event.todayOn}" style="color:#538312;" />
+                    </p:column>
+                    <p:column headerText="Tomorrow &lt;br/&gt; Fri &lt;br/&gt; 20.02.2015" style="width:60px;">
+                        <h:outputText escape="false" value="#{event.todayPlusOneOn}" />
+                    </p:column>
+                    <p:column headerText="Sat &lt;br/&gt; 21.02.2015" style="width:60px;">
+                        <h:outputText escape="false" value="#{event.todayPlusTwoOn}" style="color:#d81b21;" />
+                    </p:column>
+                    <p:column headerText="Sun &lt;br/&gt; 22.02.2015" style="width:60px;">
+                        <h:outputText escape="false" value="#{event.todayPlusThreeOn}" style="color:#d81b21;" />
+                    </p:column>
+                    <p:column headerText="Mon &lt;br/&gt; 23.02.2015" style="width:60px;">
+                        <h:outputText escape="false" value="#{event.todayPlusFourOn}" />
+                    </p:column>
+                    <p:column headerText="Tue &lt;br/&gt; 24.02.2015" style="width:60px;">
+                        <h:outputText escape="false" value="#{event.todayPlusFiveOn}" />
+                    </p:column>
+                    <p:column headerText="Wed &lt;br/&gt; 25.02.2015" style="width:60px;">
+                        <h:outputText escape="false" value="#{event.todayPlusSixOn}" />
+                    </p:column>
+                    <p:column headerText="Other Dates" style="width:130px;">
+                        <h:outputText escape="false" value="#{event.otherDates}" />
+                    </p:column>
+                    <p:column headerText="Venue" style="width:100px;">
+                        <h:outputText value="#{event.place}" />
+                    </p:column>
+                    <p:column headerText="Flavour" style="width:40px;">
+                        <h:outputText value="#{event.flavor}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+

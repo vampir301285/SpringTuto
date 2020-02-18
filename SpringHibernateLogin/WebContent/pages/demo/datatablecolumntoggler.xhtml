@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layoutwithsubmenu.xhtml">
+        <ui:define name="headerControl">
+            <h:form id="controlForm">
+                <p:growl
+                    id="growl"
+                    showDetail="true" />
+                <p:commandButton
+                    title="Toggle Search Panel"
+                    value="Search"
+                    styleClass="small orange"
+                    icon="ui-icon-search"
+                    oncomplete="$('#toggleableSearchPanel').toggle('slow')">
+                </p:commandButton>
+                <p:commandButton
+                    title="Add new car"
+                    styleClass="small"
+                    icon="ui-icon-circle-plus"
+                    oncomplete="PF('addCarDlgWidget').show();">
+                </p:commandButton>
+                <p:commandButton
+                    id="toggler"
+                    type="button"
+                    styleClass="small"
+                    title="toggle table columns"
+                    icon="ui-icon-calculator" />
+            </h:form>
+        </ui:define>
+        <ui:define name="submenu">
+            <ui:include src="/pages/demo/datatablesubmenu.xhtml" />
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <div
+                style="display: none; padding: 5px;"
+                class="ui-widget-content ui-corner-all"
+                id="toggleableSearchPanel">
+                <h:form id="searchForm">
+                    <h:outputText value="Search:" />
+                    <p:inputText></p:inputText>
+                    <p:commandButton
+                        value="Go"
+                        styleClass="button orange"></p:commandButton>
+                </h:form>
+            </div>
+
+            <h:form id="mainForm">
+                <p:dataTable
+                    id="cars"
+                    var="car"
+                    value="#{dataTableView.cars}">
+                    <f:facet name="header">
+                        <h:outputText value="List of Cars" />
+                        <p:columnToggler
+                            datasource="cars"
+                            trigger=":controlForm:toggler" />
+                    </f:facet>
+
+                    <p:column headerText="Id">
+                        <h:outputText value="#{car.id}" />
+                    </p:column>
+
+                    <p:column headerText="Year">
+                        <h:outputText value="#{car.year}" />
+                    </p:column>
+
+                    <p:column headerText="Brand">
+                        <h:outputText value="#{car.brand}" />
+                    </p:column>
+
+                    <p:column headerText="Color">
+                        <h:outputText value="#{car.color}" />
+                    </p:column>
+
+                    <p:column headerText="Price">
+                        <h:outputText value="#{car.price}">
+                            <f:convertNumber
+                                type="currency"
+                                currencySymbol="$" />
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+            <h:form id="addForm">
+                <p:dialog
+                    onShow="$('a.ui-dialog-titlebar-maximize').find('span.ui-icon-extlink').click();"
+                    fitViewport="true"
+                    closeOnEscape="true"
+                    maximizable="true"
+                    header="Add new car"
+                    modal="true"
+                    id="addCarDlg"
+                    widgetVar="addCarDlgWidget">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Id: " />
+                        <p:inputText></p:inputText>
+                        <h:outputLabel value="Brand: " />
+                        <p:selectOneMenu>
+                            <f:selectItem
+                                noSelectionOption="true"
+                                itemLabel="Select a brand" />
+                            <f:selectItems
+                                value="#{carService.brands}"
+                                var="brand"
+                                itemLabel="#{brand}"
+                                itemValue="#{brand}" />
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Year of Construction: " />
+                        <p:inputText></p:inputText>
+                        <h:outputLabel value="Color: " />
+                        <p:selectOneMenu>
+                            <f:selectItem
+                                noSelectionOption="true"
+                                itemLabel="Select a color" />
+                            <f:selectItems
+                                value="#{carService.colors}"
+                                var="color"
+                                itemLabel="#{color}"
+                                itemValue="#{color}" />
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Price: " />
+                        <p:inputText></p:inputText>
+                    </h:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton
+                            value="save"
+                            styleClass="button green"></p:commandButton>
+                        <p:commandButton
+                            immediate="true"
+                            onclick="PF('addCarDlgWidget').hide();"
+                            value="Cancel"
+                            title="Cancel and close dialog"></p:commandButton>
+                    </f:facet>
+                </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+

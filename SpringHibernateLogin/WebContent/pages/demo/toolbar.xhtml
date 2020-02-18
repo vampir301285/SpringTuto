@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layout.xhtml">
+        <ui:define name="pageHeader">
+            <div style="float: right;">
+                <h:outputLink
+                    id="signoutLink"
+                    style="visibility:hidden;"
+                    value="#{request.contextPath}/j_spring_security_logout"></h:outputLink>
+                <h:form id="controlForm">
+                    <p:growl
+                        id="growl"
+                        showDetail="true" />
+                    <p:button
+                        href="/pages/welcome"
+                        styleClass="button red small"
+                        value="Home"></p:button>
+                </h:form>
+            </div>
+            <div class="page-title">
+                <h:outputText value="Panel - Toolbar" />
+            </div>
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <style>
+.col1 {
+	vertical-align: top;
+}
+
+.col2 {
+	vertical-align: top;
+	padding-left: 20px;
+}
+</style>
+            <h:form id="mainForm">
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:commandButton
+                            type="button"
+                            value="New"
+                            icon="ui-icon-document" />
+
+                        <p:commandButton
+                            type="button"
+                            value="Open"
+                            icon="ui-icon-folder-open" />
+
+                        <span class="ui-separator"> <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                        </span>
+
+                        <p:commandButton
+                            type="button"
+                            title="Save"
+                            icon="ui-icon-disk" />
+                        <p:commandButton
+                            type="button"
+                            title="Delete"
+                            icon="ui-icon-trash" />
+                        <p:commandButton
+                            type="button"
+                            title="Print"
+                            icon="ui-icon-print" />
+                    </f:facet>
+
+                    <f:facet name="right">
+                        <p:menuButton value="Options">
+                            <p:menuitem
+                                value="Save"
+                                actionListener="#{toolbarView.save}"
+                                update=":controlForm:growl"
+                                icon="ui-icon-disk" />
+                            <p:menuitem
+                                value="Update"
+                                actionListener="#{toolbarView.update}"
+                                update=":controlForm:growl"
+                                icon="ui-icon-arrowrefresh-1-w" />
+                            <p:menuitem
+                                value="Delete"
+                                actionListener="#{toolbarView.delete}"
+                                ajax="false"
+                                icon="ui-icon-close" />
+                            <p:menuitem
+                                value="Homepage"
+                                url="http://www.primefaces.org"
+                                icon="ui-icon-extlink" />
+                        </p:menuButton>
+                    </f:facet>
+
+                </p:toolbar>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+

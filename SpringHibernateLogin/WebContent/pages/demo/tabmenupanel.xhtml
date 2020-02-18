@@ -1,0 +1,23 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <style>
+</style>
+    <h:form id="submenuForm">
+        <ul class="tab-menu">
+            <li><h:outputLink
+                    value="#{request.contextPath}/demo/data/datascroller/basic"
+                    styleClass="#{navigationContext.getSubmenuStyle('datascrollerbasic')}">Scroller Basic</h:outputLink></li>
+            <li><h:outputLink
+                    value="#{request.contextPath}/demo/data/datascroller/inline"
+                    styleClass="#{navigationContext.getSubmenuStyle('datascrollerinline')}">Inline Mode</h:outputLink></li>
+            <li><h:outputLink
+                    value="#{request.contextPath}/demo/data/datascroller/loader"
+                    styleClass="#{navigationContext.getSubmenuStyle('datascrollerloader')}">Loader Mode</h:outputLink></li>
+        </ul>
+    </h:form>
+</ui:composition>
+

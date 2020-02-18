@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layout.xhtml">
+        <ui:define name="pageHeader">
+            <div style="float: right;">
+                <h:outputLink
+                    id="signoutLink"
+                    style="visibility:hidden;"
+                    value="#{request.contextPath}/j_spring_security_logout"></h:outputLink>
+                <h:form id="controlForm">
+                    <p:growl
+                        id="growl"
+                        showDetail="true" />
+                </h:form>
+            </div>
+            <div class="page-title">
+                <h:outputText value="Media - Galleria" />
+            </div>
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <h:form id="mainForm">
+                <p:galleria
+                    value="#{imagesView.images}"
+                    var="image"
+                    panelWidth="500"
+                    panelHeight="313"
+                    autoPlay="true"
+                    transitionInterval="5000">
+                    <p:graphicImage
+                        name="images/nature/#{image}"
+                        alt="Image Description for #{image}"
+                        title="#{image}" />
+                </p:galleria>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+

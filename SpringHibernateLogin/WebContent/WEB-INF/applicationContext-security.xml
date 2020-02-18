@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                         http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/security
+                         http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+    <global-method-security secured-annotations="enabled" />
+    <http>
+        <intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <intercept-url pattern="/pages/events/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <!-- <intercept-url pattern="/pages/events/**" access="IS_AUTHENTICATED_FULLY" /> -->
+        <intercept-url pattern="/pages/**" access="IS_AUTHENTICATED_FULLY" />
+        <intercept-url pattern="/demo/**" access="IS_AUTHENTICATED_FULLY" />
+        <!-- Admin pages -->
+        <intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+        <form-login login-processing-url="/j_spring_security_check" default-target-url="/pages/welcome" login-page="/login" />
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/login" invalidate-session="true" delete-cookies="JSESSIONID" />
+        <!-- delete-cookies="JSESSIONID" -->
+    </http>
+    <authentication-manager>
+        <!-- <authentication-provider> -->
+        <!-- <user-service> -->
+        <!-- <user name="mngo" password="mngo123" authorities="ROLE_USER" /> -->
+        <!-- </user-service> -->
+        <!-- </authentication-provider> -->
+        <authentication-provider>
+            <password-encoder hash="sha-256" />
+            <jdbc-user-service data-source-ref="dataSource" users-by-username-query="select username, hashedpassword, recactive from user where username=?"
+                authorities-by-username-query="select u.username, ag.name from user u, access_group ag, user_access_group uag where u.userid = uag.userid and uag.groupid = ag.groupid and u.username =?"
+                role-prefix="ROLE_" />
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

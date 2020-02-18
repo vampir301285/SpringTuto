@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layoutwithsubmenu.xhtml">
+    <ui:define name="headerControl">
+        </ui:define>
+        <ui:define name="submenu">
+            <ui:include src="/pages/demo/tabmenupanel.xhtml" />
+        </ui:define>
+        <ui:define name="pageHeader">
+            <div style="float: right;">
+                <h:outputLink
+                    id="signoutLink"
+                    style="visibility:hidden;"
+                    value="#{request.contextPath}/j_spring_security_logout"></h:outputLink>
+                <h:form id="controlForm">
+                    <p:growl
+                        id="growl"
+                        showDetail="true" />
+                    <p:button
+                        href="/pages/welcome"
+                        styleClass="button red small"
+                        value="Home"></p:button>
+                </h:form>
+            </div>
+           
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <style>
+.logo {
+	width: 150px;
+}
+</style>
+            <h:form id="mainForm">
+                <p:dataScroller
+                    rowIndexVar="rowIndex"
+                    mode="inline"
+                    scrollHeight="700"
+                    value="#{dataScrollerView.cars}"
+                    var="car"
+                    chunkSize="10">
+                    <f:facet name="header">
+                        <h:outputLabel value="Scroll Down to Load More Cars" />
+                    </f:facet>
+                    <h:panelGrid
+                        columns="2"
+                        style="width:100%"
+                        columnClasses="logo,detail">
+                        <p:graphicImage
+                            library="images"
+                            name="cars/#{car.brand}.jpg" />
+                        <p:outputPanel>
+                            <h:panelGrid
+                                columns="2"
+                                cellpadding="5">
+                                <h:outputText value="Id:" />
+                                <h:outputText
+                                    value="#{car.id}"
+                                    style="font-weight: bold" />
+
+                                <h:outputText value="Brand:" />
+                                <h:outputText
+                                    value="#{car.brand}"
+                                    style="font-weight: bold" />
+
+                                <h:outputText value="Year:" />
+                                <h:outputText
+                                    value="#{car.year}"
+                                    style="font-weight: bold" />
+
+                                <h:outputText value="Color:" />
+                                <h:outputText
+                                    value="#{car.color}"
+                                    style="font-weight: bold" />
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                    <p:separator rendered="#{rowIndex lt (dataScrollerView.cars.size() -1)}"></p:separator>
+                </p:dataScroller>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+

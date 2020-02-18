@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+<f:view contentType="text/html">
+    <h:head>
+        <title>Website</title>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta http-equiv="pragma" content="no-cache" />
+            <meta http-equiv="cache-control" content="no-cache" />
+            <meta http-equiv="expires" content="0" />
+        </f:facet>
+        <link rel="SHORTCUT ICON" href="#{request.contextPath}/resources/images/e3_100.ico" />
+    </h:head>
+    <h:body>
+        <f:facet name="last">
+            <h:outputStylesheet library="css" name="style.css" />
+            <h:outputStylesheet library="css" name="button.css" />
+        </f:facet>
+
+        <h:outputScript library="js" name="javascript.js" />
+
+        <ui:include src="/template/ajaxstatus.xhtml" />
+
+        <h:outputScript id="srollDownScript" target="body">
+        /* <![CDATA[ */ 
+           $(window).scroll(function() {
+            if ($(window).scrollTop() < 150) {
+                $('#toTopButton_').addClass('hidden');
+            } else if ($(window).scrollTop() >= 150) {
+                $('#toTopButton_').removeClass('hidden');
+            }
+        });
+        /* ]]> */  
+        </h:outputScript>
+        <h:form prependId="false">
+            <p:commandButton id="toTopButton_" type="button" icon="ui-icon-triangle-1-n" styleClass="back-to-top hidden orange" title="Back to top"
+                onclick="$('html, body').animate({scrollTop: 0}, 'fast');" />
+        </h:form>
+
+        <!-- style="background-color: #f3f3f3"  style="background-color: #0E5E06;" -->
+        <div class="event-header">
+            <div class="center">
+                <table width="100%" border="0" cellpadding="3" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td width="200"><a href="/"><p:graphicImage library="images" name="e3_100.png" width="80" /></a></td>
+                            <td><h:outputText value="Events 'n Stuff" style="font-size: 200%;font-weight: bold;color:white;" /> <br /> <h:outputText
+                                    value="Events in and around Freiburg" style="font-size: 200%;font-weight: bold;color:white;" /></td>
+                            <td align="right" valign="top">
+
+                                <form action="/events" method="get" class="ng-pristine ng-valid">
+                                    <noscript>&lt;button style="float:right;"&gt;Apply&lt;/button&gt; &lt;input type="hidden" name="type"
+                                        value="0" /&gt; &lt;span style="float:right;"&gt;&amp;nbsp;&lt;/span&gt;</noscript>
+                                    <select name="locale" style="float: right;" onchange="selectLocale(this)">
+                                        <option selected="" value="en">English</option>
+                                        <option value="en_UK">British English</option>
+                                        <option value="de">Deutsch (German)</option>
+                                        <option value="fr">Français (French)</option>
+                                    </select>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="submenu ">
+            <div class="center">
+                <div style="float: right; padding-top: 4px; padding-right: 10px;">
+                    <ui:insert name="headerControl"></ui:insert>
+                </div>
+                <div>
+                    <ui:insert name="submenu"></ui:insert>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-widget-content page-content center">
+            <ui:insert name="pageContent"></ui:insert>
+        </div>
+
+        <div class="ui-widget-content page-footer center">
+            <ui:include src="/template/footer.xhtml" />
+        </div>
+    </h:body>
+</f:view>
+</html>

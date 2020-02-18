@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<f:view contentType="text/html">
+    <h:head>
+        <script
+            type="text/javascript"
+            src="https://jira.bbqnx.net/s/en_US6w2laf-418945332/851/7/1.2.9/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=92d8d4d3"></script>
+        <title>Login</title>
+        <f:facet name="first">
+            <meta
+                http-equiv="X-UA-Compatible"
+                content="IE=Edge" />
+            <meta
+                http-equiv="Content-Type"
+                content="text/html; charset=UTF-8" />
+            <meta
+                http-equiv="pragma"
+                content="no-cache" />
+            <meta
+                http-equiv="cache-control"
+                content="no-cache" />
+            <meta
+                http-equiv="expires"
+                content="0" />
+        </f:facet>
+    </h:head>
+    <h:body>
+        <f:facet name="last">
+            <h:outputStylesheet
+                library="css"
+                name="style.css" />
+            <h:outputStylesheet
+                library="css"
+                name="button.css" />
+        </f:facet>
+
+        <f:metadata>
+            <f:event
+                type="preRenderView"
+                listener="#{loginController.handleErrorMessage}" />
+        </f:metadata>
+
+        <h:form
+            id="loginForm"
+            prependId="false">
+            <p:growl
+                showDetail="true"
+                id="growl"></p:growl>
+            <p:panel
+                header="Login"
+                styleClass="login-panel">
+                <h:panelGrid columns="1">
+                    <h:outputText value="Username: " />
+                    <p:inputText
+                        value="#{loginController.username}"
+                        id="j_username"
+                        required="true"
+                        requiredMessage="Username must not be empty."></p:inputText>
+                    <h:outputText value="Password: " />
+                    <p:inputText
+                        value="#{loginController.password}"
+                        id="j_password"
+                        type="password"
+                        required="true"
+                        requiredMessage="Password must not be empty."></p:inputText>
+                </h:panelGrid>
+
+                <f:facet name="footer">
+                    <p:commandButton
+                        ajax="false"
+                        update="growl"
+                        styleClass="button blue"
+                        action="#{loginController.login}"
+                        value="Login"></p:commandButton>
+                </f:facet>
+            </p:panel>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

@@ -1,0 +1,112 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+
+    <h:outputScript id="srollDownScript" target="body">
+        /* <![CDATA[ */ 
+           $(window).scroll(function() {
+            if ($(window).scrollTop() < 150) {
+                $('#toTopButton_').addClass('hidden');
+            } else if ($(window).scrollTop() >= 150) {
+                $('#toTopButton_').removeClass('hidden');
+            }
+        });
+        /* ]]> */  
+        </h:outputScript>
+
+
+    <h:form prependId="false">
+        <p:commandButton id="toTopButton_" type="button" icon="ui-icon-triangle-1-n" styleClass="back-to-top hidden orange" title="Back to top"
+            onclick="$('html, body').animate({scrollTop: 0}, 'fast');" />
+    </h:form>
+
+    <h:form id="navibarForm" prependId="false">
+        <div class="navi-bar">
+            <div style="float: right">
+                <p:megaMenu styleClass="menu-bar-customized">
+                    <p:submenu styleClass="menu-item-1" label="Dashboard">
+                        <p:column>
+                            <p:submenu styleClass="display-none">
+                                <p:menuitem styleClass="menu-item-default" value="Welcome" icon="ui-icon-home" url="/pages/welcome" />
+                                <p:menuitem styleClass="menu-item-default" value="URL Mapping" title="Present the Pretty Faces" icon="ui-icon-link"
+                                    url="/pages/urlmapping" />
+                                <p:separator />
+                                <p:menuitem icon="ui-icon-newwin" styleClass="menu-item-default" value="Test Cases" url="#" />
+                                <p:separator />
+                                <p:menuitem styleClass="menu-item-default" value="Events" icon="ui-icon-home" url="/pages/events" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+
+
+                    <p:submenu styleClass="menu-item-1" label="PrimeFaces">
+                        <p:column>
+                            <p:submenu styleClass="menu-item-default" label="Data">
+                                <p:menuitem icon="ui-icon-calculator" styleClass="menu-item-default" value="DataTable"
+                                    url="/demo/data/datatable/basic" />
+                                <p:menuitem icon="ui-icon-arrow-1-s" styleClass="menu-item-default" value="DataScroller"
+                                    url="/demo/data/datascroller/basic" />
+                            </p:submenu>
+                            <p:submenu styleClass="menu-item-default" label="Chart">
+                                <p:menuitem icon="ui-icon-bookmark" styleClass="menu-item-default" value="Animate" url="/demo/chart/animate" />
+                            </p:submenu>
+                            <p:submenu styleClass="menu-item-default" label="Panel">
+                                <p:menuitem icon="ui-icon-wrench" styleClass="menu-item-default" value="Toolbar" url="/demo/panel/toolbar" />
+                                <p:menuitem icon="ui-icon-wrench" styleClass="menu-item-default" value="Toolbar" url="/demo/panel/dashboard" />
+                            </p:submenu>
+                        </p:column>
+                        <p:column>
+                            <p:submenu styleClass="menu-item-default" label="Media">
+                                <p:menuitem icon="ui-icon-image" styleClass="menu-item-default" value="Galleria" url="/demo/media/galleria" />
+                            </p:submenu>
+                            <p:submenu styleClass="menu-item-default" label="Menu">
+                                <p:menuitem icon="ui-icon-link" styleClass="menu-item-default" value="TabMenu" url="/demo/menu/tabmenu" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+
+                    <p:submenu styleClass="menu-item-1" label="Project">
+                        <p:column>
+                            <p:submenu styleClass="menu-item-default" label="Current Project" icon="ui-icon-contact">
+                                <p:menuitem icon="ui-icon-info" styleClass="menu-item-default" value="Selenium Project" url="#" />
+
+                                <p:separator></p:separator>
+                                <p:menuitem icon="ui-icon-pin-s" styleClass="menu-item-default" value="Milestones" url="#" />
+                                <p:menuitem icon="ui-icon-play" styleClass="menu-item-default" value="Test Runs &amp; Results" url="#" />
+                                <p:menuitem icon="ui-icon-suitcase" styleClass="menu-item-default" value="Test Suites" url="#" />
+                                <p:menuitem icon="ui-icon-calculator" styleClass="menu-item-default" value="Reports" url="#" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+
+                    <p:submenu rendered="#{sessionProperty.admin}" styleClass="menu-item-1" label="Admin">
+                        <p:column>
+                            <p:submenu styleClass="display-none">
+                                <p:menuitem styleClass="menu-item-default" value="Users &amp; Groups" url="/admin/admin" icon="ui-icon-person" />
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+
+                    <f:facet name="options">
+                        <!-- 
+                <p:inputText
+                    style="margin-right:10px"
+                    placeholder="Search" />
+                     -->
+                        <p:spacer width="20"></p:spacer>
+                        <p:menuButton value="#{sessionProperty.remoteUser.username}" styleClass="small">
+                            <p:menuitem value="Logout" url="#{request.contextPath}/j_spring_security_logout?faces-redirect=true"
+                                icon="ui-icon-extlink" />
+                        </p:menuButton>
+                    </f:facet>
+                </p:megaMenu>
+            </div>
+            <div>
+                <h:panelGrid columns="2" cellspacing="5">
+                    <p:graphicImage library="images" name="e3_100.png" width="70" />
+                    <h:outputText value="Project Name" style="color:#ffffff;font-size:200%;font-weight:bold;padding-left:40px;" />
+                </h:panelGrid>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

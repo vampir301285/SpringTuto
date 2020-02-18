@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layout.xhtml">
+        <ui:define name="pageHeader">
+            <div style="float: right;">
+                <h:outputLink
+                    id="signoutLink"
+                    style="visibility:hidden;"
+                    value="#{request.contextPath}/j_spring_security_logout"></h:outputLink>
+                <h:form id="controlForm">
+                    <p:growl
+                        id="growl"
+                        showDetail="true" />
+                    <p:button
+                        href="/pages/welcome"
+                        styleClass="button red small"
+                        value="Home"></p:button>
+                </h:form>
+            </div>
+            <div class="page-title">
+                <h:outputText value="Charts - Animate" />
+            </div>
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <style>
+.col1 {
+	vertical-align: top;
+}
+
+.col2 {
+	vertical-align: top;
+	padding-left: 20px;
+}
+</style>
+            <h:form id="chartForm">
+                <h:panelGrid
+                    columns="3"
+                    columnClasses="col1,col2,col2">
+                    <p:chart
+                        type="line"
+                        model="#{chartView.lineChart}"
+                        style="width:400px;" />
+                    <p:chart
+                        type="bar"
+                        model="#{chartView.barChart}"
+                        style="width:400px;height:320px;" />
+
+                    <p:chart
+                        type="pie"
+                        model="#{chartView.pieChart}"
+                        style="width:400px;">
+                        <p:ajax
+                            event="itemSelect"
+                            listener="#{chartView.itemSelect}"
+                            update=":controlForm:growl" />
+                    </p:chart>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+

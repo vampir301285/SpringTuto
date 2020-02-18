@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<f:view contentType="text/html">
+    <h:head>
+        <title>Website</title>
+        <f:facet name="first">
+            <meta
+                http-equiv="X-UA-Compatible"
+                content="IE=Edge" />
+            <meta
+                http-equiv="Content-Type"
+                content="text/html; charset=UTF-8" />
+            <meta
+                http-equiv="pragma"
+                content="no-cache" />
+            <meta
+                http-equiv="cache-control"
+                content="no-cache" />
+            <meta
+                http-equiv="expires"
+                content="0" />
+        </f:facet>
+        <link
+            rel="SHORTCUT ICON"
+            href="#{request.contextPath}/resources/images/favicon.ico" />
+    </h:head>
+    <h:body>
+        <f:facet name="last">
+            <h:outputStylesheet
+                library="css"
+                name="style.css" />
+            <h:outputStylesheet
+                library="css"
+                name="button.css" />
+        </f:facet>
+
+        <h:outputScript
+            library="js"
+            name="javascript.js" />
+
+        <ui:include src="/template/ajaxstatus.xhtml" />
+        <ui:include src="/template/navibar.xhtml" />
+
+        <div class="ui-widget-header page-header">
+            <ui:insert name="pageHeader"></ui:insert>
+        </div>
+
+        <div class="ui-widget-content page-content">
+            <ui:insert name="pageContent"></ui:insert>
+        </div>
+
+        <div class="ui-widget-content page-footer">
+            <ui:include src="/template/footer.xhtml" />
+        </div>
+    </h:body>
+</f:view>
+</html>

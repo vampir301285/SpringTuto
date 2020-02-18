@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layoutwithsubmenu.xhtml">
+        <ui:define name="headerControl">
+        </ui:define>
+        <ui:define name="submenu">
+            <ui:include src="/pages/demo/datatablesubmenu.xhtml" />
+        </ui:define>
+        <ui:define name="pageHeader">
+            <div style="float: right;">
+                <h:outputLink
+                    id="signoutLink"
+                    style="visibility:hidden;"
+                    value="#{request.contextPath}/j_spring_security_logout"></h:outputLink>
+                <h:form id="controlForm">
+                    <p:growl
+                        id="growl"
+                        showDetail="true" />
+                    <p:button
+                        href="/pages/welcome"
+                        styleClass="button red small"
+                        value="Home"></p:button>
+                </h:form>
+            </div>
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <h:form id="mainForm">
+                <p:dataTable
+                    var="car"
+                    value="#{dataTableLazyView.lazyModel}"
+                    paginator="true"
+                    rows="20"
+                    paginatorPosition="bottom"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    currentPageReportTemplate="(Entry: {startRecord} - {endRecord} of {totalRecords}, Page: {currentPage}/{totalPages})"
+                    rowsPerPageTemplate="10,20,30"
+                    selectionMode="single"
+                    rowKey="#{car.id}"
+                    selection="#{dataTableLazyView.selectedCar}"
+                    id="carTable"
+                    lazy="true">
+                    <p:ajax
+                        event="rowSelect"
+                        listener="#{dataTableLazyView.onRowSelect}"
+                        update=":mainForm:carDetail"
+                        oncomplete="PF('carDialog').show()" />
+                    <p:column
+                        headerText="Id"
+                        sortBy="#{car.id}"
+                        filterBy="#{car.id}">
+                        <h:outputText value="#{car.id}" />
+                    </p:column>
+                    <p:column
+                        headerText="Year"
+                        sortBy="#{car.year}"
+                        filterBy="#{car.year}">
+                        <h:outputText value="#{car.year}" />
+                    </p:column>
+                    <p:column
+                        headerText="Brand"
+                        sortBy="#{car.brand}"
+                        filterBy="#{car.brand}">
+                        <h:outputText value="#{car.brand}" />
+                    </p:column>
+                    <p:column
+                        headerText="Color"
+                        sortBy="#{car.color}"
+                        filterBy="#{car.color}">
+                        <h:outputText value="#{car.color}" />
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog
+                    header="Car Detail"
+                    widgetVar="carDialog"
+                    modal="true"
+                    showEffect="fade"
+                    hideEffect="fade"
+                    resizable="false">
+                    <p:outputPanel
+                        id="carDetail"
+                        style="text-align:center;">
+                        <p:panelGrid
+                            columns="2"
+                            rendered="#{not empty dataTableLazyView.selectedCar}"
+                            columnClasses="label,value">
+                            <f:facet name="header">
+                                <p:graphicImage name="images/cars/#{dataTableLazyView.selectedCar.brand}.jpg" />
+                            </f:facet>
+
+                            <h:outputText value="Id:" />
+                            <h:outputText value="#{dataTableLazyView.selectedCar.id}" />
+
+                            <h:outputText value="Year" />
+                            <h:outputText value="#{dataTableLazyView.selectedCar.year}" />
+
+                            <h:outputText value="Color:" />
+                            <h:outputText
+                                value="#{dataTableLazyView.selectedCar.color}"
+                                style="color:#{dataTableLazyView.selectedCar.color}" />
+
+                            <h:outputText value="Price:" />
+                            <h:outputText value="#{dataTableLazyView.selectedCar.price}">
+                                <f:convertNumber
+                                    type="currency"
+                                    currencySymbol="$" />
+                            </h:outputText>
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+

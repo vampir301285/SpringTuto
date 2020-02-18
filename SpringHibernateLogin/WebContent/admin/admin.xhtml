@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layout.xhtml">
+        <ui:define name="pageHeader">
+            <h:form id="controlForm">
+                <div style="float: right;">
+                    <p:button
+                        styleClass="button green small"
+                        href="/pages/welcome"
+                        value="Home"
+                        icon="ui-icon-triangle-1-w"></p:button>
+                    <p:commandButton
+                        oncomplete="PF('addUserDlgWidget').show();"
+                        styleClass="button blue small"
+                        value="Add User"
+                        update=":addUserForm:addUserDlg">
+                        <p:resetInput target=":addUserForm:addUserDlg"></p:resetInput>
+                    </p:commandButton>
+                </div>
+                <div class="page-title">
+                    <h:outputText value="Admin Page" />
+                </div>
+            </h:form>
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <h:outputLink
+                id="signoutLink"
+                style="visibility:hidden;"
+                value="#{request.contextPath}/j_spring_security_logout"></h:outputLink>
+            <h:form id="mainForm">
+                <p:growl
+                    id="growl"
+                    showDetail="true"></p:growl>
+            </h:form>
+
+            <div>
+                <h:form id="tableForm">
+                    <p:dataTable
+                        id="dataTable"
+                        widgetVar="dataTableWg"
+                        var="user"
+                        value="#{manageUserController.userList}"
+                        paginator="true"
+                        rows="10"
+                        filteredValue="#{manageUserController.filteredUsers}"
+                        paginatorPosition="bottom"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        currentPageReportTemplate="(Entry: {startRecord} - {endRecord} of {totalRecords}, Page: {currentPage}/{totalPages})"
+                        rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            <p:outputPanel style="text-align: right">
+                                <h:outputText value="Search:" />
+                                <p:inputText
+                                    id="globalFilter"
+                                    onkeyup="PF('dataTableWg').filter();"
+                                    style="width:150px;" />
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column
+                            sortBy="#{user.username}"
+                            filterMatchMode="contains"
+                            filterBy="#{user.username}">
+                            <f:facet name="header">
+                                <h:outputText value="Username" />
+                            </f:facet>
+                            <h:outputText value="#{user.username}" />
+                        </p:column>
+                        <p:column
+                            sortBy="#{user.firstName}"
+                            filterMatchMode="contains"
+                            filterBy="#{user.firstName}">
+                            <f:facet name="header">
+                                <h:outputText value="First Name" />
+                            </f:facet>
+                            <h:outputText value="#{user.firstName}" />
+                        </p:column>
+                        <p:column
+                            sortBy="#{user.lastName}"
+                            filterMatchMode="contains"
+                            filterBy="#{user.lastName}">
+                            <f:facet name="header">
+                                <h:outputText value="Last Name" />
+                            </f:facet>
+                            <h:outputText value="#{user.lastName}" />
+                        </p:column>
+                        <p:column
+                            headerText="Access Group"
+                            filterMatchMode="contains"
+                            filterBy="#{user.accessGroups}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu
+                                    onchange="PF('dataTableWg').filter();"
+                                    filter="true"
+                                    filterMatchMode="contains">
+                                    <f:converter binding="#{entityConverter}" />
+                                    <f:selectItem
+                                        itemLabel="All"
+                                        noSelectionOption="true" />
+                                    <f:selectItems
+                                        value="#{manageUserController.accessGroupList}"
+                                        var="group"
+                                        itemLabel="#{group.name}"
+                                        itemValue="#{group}">
+                                    </f:selectItems>
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <p:dataList
+                                type="none"
+                                var="team"
+                                styleClass="none-border-panel"
+                                value="#{user.accessGroups}">
+                                <h:outputText
+                                    value="#{team.name}"
+                                    styleClass="ui-autocomplete-token ui-state-active ui-corner-all tag">
+                                    <f:converter binding="#{lowerCaseConverter}" />
+                                </h:outputText>
+                            </p:dataList>
+                        </p:column>
+
+                        <p:column
+                            sortBy="#{user.recUpdatedBy.username}"
+                            filterMatchMode="contains"
+                            filterBy="#{user.recUpdatedBy.username}">
+                            <f:facet name="header">
+                                <h:outputText value="Updated By" />
+                            </f:facet>
+                            <h:outputText value="#{user.recUpdatedBy.username}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+
+            <h:form id="addUserForm">
+                <p:dialog
+                    id="addUserDlg"
+                    widgetVar="addUserDlgWidget"
+                    modal="true"
+                    position="center,center"
+                    closable="false"
+                    height="auto"
+                    width="auto"
+                    showEffect="Blind">
+                    <f:facet name="header">
+                        <h:outputText
+                            value="Add New User"
+                            styleClass="text-header" />
+
+                    </f:facet>
+
+                    <p:panelGrid styleClass="none-border-panel">
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Username* " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText
+                                    value="#{manageUserController.newUser.username}"
+                                    required="true"
+                                    requiredMessage="Username must not be empty." />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="First Name " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{manageUserController.newUser.firstName}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Last Name " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{manageUserController.newUser.lastName}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Password " />
+                            </p:column>
+                            <p:column>
+                                <p:password
+                                    id="feedback"
+                                    value="#{manageUserController.newUser.hashedPassword}"
+                                    feedback="true" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Access Groups: " />
+                            </p:column>
+                            <p:column>
+                                <p:autoComplete
+                                    id="autocompleteGroups"
+                                    value="#{manageUserController.newUser.accessGroups}"
+                                    completeMethod="#{manageUserController.completeGroups}"
+                                    var="team"
+                                    itemLabel="#{team.name}"
+                                    itemValue="#{team}"
+                                    multiple="true">
+                                    <f:converter binding="#{entityConverter}"></f:converter>
+                                    <p:ajax event="itemUnselect" />
+                                    <p:ajax event="itemSelect" />
+                                    <h:outputText value="#{team.name}"></h:outputText>
+                                </p:autoComplete>
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton
+                            value="Add"
+                            update=":mainForm:growl, :tableForm:dataTable"
+                            process="addUserDlg"
+                            styleClass="button blue"
+                            action="#{manageUserController.addUser}"></p:commandButton>
+                        <p:spacer width="10"></p:spacer>
+                        <p:commandButton
+                            immediate="true"
+                            value="Cancel"
+                            styleClass="button black"
+                            title="Cancel and close dialog"
+                            onclick="addUserDlgWidget.hide();" />
+                    </f:facet>
+                </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

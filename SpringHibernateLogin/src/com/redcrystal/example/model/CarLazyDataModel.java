@@ -1,0 +1,103 @@
+package com.redcrystal.example.model;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
+public class CarLazyDataModel extends LazyDataModel<Car> {
+
+	/**
+	 * Generated serial version id
+	 */
+	private static final long serialVersionUID = 6782116858903510880L;
+
+	/** The datasource */
+	private List<Car> datasource;
+
+	public CarLazyDataModel(List<Car> datasource) {
+		this.datasource = datasource;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Car getRowData(String rowKey) {
+		for (Car car : datasource) {
+			if (car.getId().endsWith(rowKey)) {
+				return car;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Object getRowKey(Car car) {
+		return car.getId();
+	}
+
+	@Override
+	public List<Car> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+		List<Car> data = new ArrayList<Car>();
+
+		// filter
+		for (Car car : datasource) {
+			boolean match = true;
+			if (filters != null) {
+				for (Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {
+					try {
+						String filterProperty = it.next();
+						Object filterValue = filters.get(filterProperty);
+						String fieldValue = String.valueOf(car.getClass().getField(filterProperty).get(car));
+						if (filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+							match = true;
+						} else {
+							match = false;
+							break;
+						}
+					} catch (IllegalArgumentException e) {
+						match = false;
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						match = false;
+						e.printStackTrace();
+					} catch (NoSuchFieldException e) {
+						match = false;
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						match = false;
+						e.printStackTrace();
+					}
+				}
+			}
+			if (match) {
+				data.add(car);
+			}
+		}
+
+		// sort
+		if (sortField != null) {
+			Collections.sort(data, new CarLazySorter(sortField, sortOrder));
+		}
+
+		// rowCount
+		int dataSize = data.size();
+		this.setRowCount(dataSize);
+
+		// paginate
+		if (dataSize > pageSize) {
+			try {
+				return data.subList(first, first + pageSize);
+			} catch (IndexOutOfBoundsException e) {
+				return data.subList(first, first + (dataSize % pageSize));
+			}
+		} else {
+			return data;
+		}
+	}
+}

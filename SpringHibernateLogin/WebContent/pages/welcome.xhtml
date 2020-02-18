@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition template="/template/layout.xhtml">
+        <ui:define name="pageHeader">
+            <div style="float: right;">
+                <h:form id="controlForm">
+                    <p:button
+                        rendered="#{sessionProperty.admin}"
+                        href="/admin/admin"
+                        styleClass="button red small"
+                        value="Admin"></p:button>
+                    <p:button
+                        href="/pages/urlmapping"
+                        styleClass="button orange small"
+                        value="URL Mapping"></p:button>
+                    <p:button
+                        href="#{request.contextPath}/j_spring_security_logout?faces-redirect=true"
+                        styleClass="button black small"
+                        value="Logout" />
+                </h:form>
+            </div>
+            <div class="page-title">
+                <h:outputText value="Welcome" />
+            </div>
+        </ui:define>
+
+        <ui:define name="pageContent">
+            <f:metadata>
+                <f:viewParam
+                    name="msg"
+                    value="#{welcomeController.message}"></f:viewParam>
+            </f:metadata>
+
+
+            <h:form>
+                <h:outputText
+                    value="Welcome message: #{welcomeController.message}"
+                    rendered="#{not empty welcomeController.message}" />
+                <div>
+                    <p:inputText value="#{welcomeController.message}">
+                        <p:ajax
+                            event="keyup"
+                            update="button" />
+                    </p:inputText>
+                    <p:button
+                        id="button"
+                        outcome="welcome"
+                        value="Say Something"
+                        icon="ui-icon-star">
+                        <f:param
+                            name="msg"
+                            value="#{welcomeController.message}" />
+                    </p:button>
+                </div>
+                <p:inputTextarea></p:inputTextarea>
+            </h:form>
+
+            <p:spacer height="10"></p:spacer>
+            <h:form>
+                <p:panel header="Panel">
+                Content here
+            </p:panel>
+                <p:spacer height="10"></p:spacer>
+                <p:tabView>
+                    <p:tab title="Godfather Part I">
+                        <h:panelGrid
+                            columns="2"
+                            cellpadding="10">
+                            <h:outputText value="The story begins as Don Vito Corleone..." />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part II">
+                        <h:panelGrid
+                            columns="2"
+                            cellpadding="10">
+                            <h:outputText value="Francis Ford Coppola's legendary..." />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part III">
+                        <h:panelGrid
+                            columns="2"
+                            cellpadding="10">
+                            <h:outputText value="After a break of more than 15 years..." />
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+            </h:form>
+
+            <p:spacer height="10"></p:spacer>
+            <ui:include src="./menu.xhtml" />
+            <p:spacer height="10"></p:spacer>
+            <ui:include src="./megamenu.xhtml" />
+
+            <ui:include src="./button.xhtml" />
+            <p:spacer height="10"></p:spacer>
+
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+
