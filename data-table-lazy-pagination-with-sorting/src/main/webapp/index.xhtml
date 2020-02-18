@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+
+<h:body>
+    <h2>Primefaces Lazy pagination with sorting example</h2>
+    <h:form>
+        <p:dataTable var="employee" value="#{employeeController.model}" paginator="true" rows="50"
+            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink}
+                             {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+            rowsPerPageTemplate="20,50,100" lazy="true">
+            <p:column headerText="Id" sortBy="#{employee.id}">
+                <h:outputText value="#{employee.id}" />
+            </p:column>
+
+            <p:column headerText="Name" sortBy="#{employee.name}">
+                <h:outputText value="#{employee.name}" />
+            </p:column>
+
+            <p:column headerText="Phone Number" sortBy="#{employee.phoneNumber}">
+                <h:outputText value="#{employee.phoneNumber}" />
+            </p:column>
+
+            <p:column headerText="Address" sortBy="#{employee.address}">
+                <h:outputText value="#{employee.address}" />
+            </p:column>
+
+            <p:column headerText="Address" sortBy="#{employee.email}">
+                <h:outputText value="#{employee.email}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
