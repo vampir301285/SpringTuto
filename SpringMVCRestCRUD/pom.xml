@@ -9,7 +9,7 @@
     <url>http://maven.apache.org</url>
     <!-- example from http://websystique.com/springmvc/spring-mvc-4-restful-web-services-crud-example-resttemplate/ -->
     <properties>
-        <springframework.version>4.3.1.RELEASE</springframework.version>
+        <springframework.version>5.2.7.RELEASE</springframework.version>
         <jackson.library>2.7.5</jackson.library>
     </properties>
 
